@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -76,22 +77,43 @@ fun StopWatchApp() {
             }
         }
     }
-
-
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-            text = formatTime(timeInMillis), // 2. State 변수를 사용해 시간 표시
-            fontSize = 40.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Row {
-            // 3. 버튼 클릭 시 isRunning 상태를 변경
-            Button(onClick = { isRunning = true }) { Text("Start") }
-            Button(onClick = { isRunning = false }) { Text("Stop") }
-            Button(onClick = {
-                isRunning = false
-                timeInMillis = 0L
-            }) { Text("Reset") }
+    Card(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(8.dp),
+        shape = RoundedCornerShape(16.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = formatTime(timeInMillis),
+                fontSize = 48.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Button(
+                    onClick = { isRunning = true },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50))
+                ) { Text("Start") }
+                Button(
+                    onClick = { isRunning = false },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF44336))
+                ) { Text("Stop") }
+                Button(
+                    onClick = {
+                        isRunning = false
+                        timeInMillis = 0L
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
+                ) { Text("Reset") }
+            }
         }
     }
 }
